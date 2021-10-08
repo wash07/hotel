@@ -7,12 +7,12 @@ import com.example.dao.BookingRepository;
 import com.example.domain.Booking;
 
 @Service
-public class CreateBookingService {
+public class UpdateBookingService {
 	
 	@Autowired
 	private BookingRepository repository;
 	
-	public void create(Booking booking) {
+	public void update(Booking booking) {
 		repository.save(booking);
 	}
 

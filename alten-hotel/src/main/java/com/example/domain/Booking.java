@@ -1,6 +1,6 @@
 package com.example.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,11 +20,11 @@ public class Booking {
 	@Column(nullable = false, unique = true)
 	private String customerName;
 	
-	@Column(nullable = false)
-	private LocalDateTime checkIn;
+	@Column(nullable = false, columnDefinition = "DATE")
+	private LocalDate checkIn;
 	
-	@Column(nullable = false)
-	private LocalDateTime checkOut;
+	@Column(nullable = false, columnDefinition = "DATE")
+	private LocalDate checkOut;
 
 	public String getCustomerName() {
 		return customerName;
@@ -34,19 +34,19 @@ public class Booking {
 		this.customerName = customerName;
 	}
 
-	public LocalDateTime getCheckIn() {
+	public LocalDate getCheckIn() {
 		return checkIn;
 	}
 
-	public void setCheckIn(LocalDateTime checkIn) {
+	public void setCheckIn(LocalDate checkIn) {
 		this.checkIn = checkIn;
 	}
 
-	public LocalDateTime getCheckOut() {
+	public LocalDate getCheckOut() {
 		return checkOut;
 	}
 
-	public void setCheckOut(LocalDateTime checkOut) {
+	public void setCheckOut(LocalDate checkOut) {
 		this.checkOut = checkOut;
 	}
 	
