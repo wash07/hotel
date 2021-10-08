@@ -17,7 +17,7 @@ public class Booking {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String customerName;
 	
 	@Column(nullable = false, columnDefinition = "DATE")
@@ -48,6 +48,14 @@ public class Booking {
 
 	public void setCheckOut(LocalDate checkOut) {
 		this.checkOut = checkOut;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	
