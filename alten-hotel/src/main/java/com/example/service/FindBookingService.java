@@ -18,4 +18,10 @@ public class FindBookingService {
 		return repository.findAll();
 	}
 
+	public boolean validateAvailability(Booking booking) {
+		if(repository.findBookings(booking.getCheckIn(), booking.getCheckOut()) == null) {
+			return true;
+		}
+		return false;
+	}
 }

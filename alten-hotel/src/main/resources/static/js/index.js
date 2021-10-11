@@ -14,23 +14,47 @@ $("#cancelbtn").on("click", function() {
 });
 
 function book() {
-	var booking = {}
-    booking["customerName"] = $("#customerName").val();
-    booking["checkIn"] = $("#checkIn").val();
-    booking["checkOut"] = $("#checkOut").val();
- 
-	$.ajax({
-	  type: "POST",
-	  contentType: "application/json",
-	  url: "/bookings",
-	  data: JSON.stringify(booking),
-	  dataType: 'json',
-	}).done(function(){
-         listBook();
-	})
-	.fail(function(jqXHR, textStatus, msg){
-	     listBook();
-	});
+	if(validateBook() == true) {
+		var booking = {}
+	    booking["customerName"] = $("#customerName").val();
+	    booking["checkIn"] = $("#checkIn").val();
+	    booking["checkOut"] = $("#checkOut").val();
+	 
+		$.ajax({
+		  type: "POST",
+		  contentType: "application/json",
+		  url: "/bookings",
+		  data: JSON.stringify(booking),
+		  dataType: 'json',
+		}).done(function(){
+	         listBook();
+		})
+		.fail(function(jqXHR, textStatus, msg){
+		     listBook();
+		});	
+	}
+}
+
+function validateBook() {
+	var date = new Date();
+	var todayFormatted = date.getFullYear() +"-"+ (date.getMonth < 9 ? "0" + date.getMonth() : (date.getMonth() + 1)) 
+	+"-"+ (date.getDate <= 9 ? "0" + date.getDate() : date.getDate());
+	
+	console.log($("#checkOut").val() - $("#checkIn").val());
+	if($("#checkIn").val() <= todayFormatted) {
+		console.log("validate the actual date");
+		$("#divError").html("Please select a date after today").addClass("error-msg");
+		return false;
+	} else if ($("#checkOut").val() < $("#checkIn").val()) {
+		console.log("validate if checkout > checkin");
+		return false;
+	} else if ($("#checkOut").val() - $("#checkIn").val() > 3) {
+		console.log("validate if number of nights is bigger than 3 days");
+		return false;
+	}
+	
+	return true;
+	
 }
 
 function updateBook(id) {
