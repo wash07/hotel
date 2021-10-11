@@ -33,16 +33,66 @@ function book() {
 	});
 }
 
-function updateBook() {
+function updateBook(id) {
+	localStorage.setItem('cusName', $("#tblBook #" + id + " #cusName").text());
+	localStorage.setItem('checkInDate', $("#tblBook #" + id + " #checkI").text());
+	localStorage.setItem('checkOutDate', $("#tblBook #" + id + " #checkO").text());
+	$( "#tblBook #" + id + " #cusName").html(`<input type="text" class="form-control" id="updateCustomerName"
+	                               autofocus="autofocus" name="name" value="`+$("#tblBook #" + id + " #cusName").text()+`"/>`);
+	$( "#tblBook #" + id + " #checkI").html(`<input type="date" class="form-control" id="updateCheckIn" name="checkin" value="`+$("#tblBook #" + id + " #checkI").text()+`"/>`);
+   	$( "#tblBook #" + id + " #checkO").html(`<input type="date" class="form-control" id="updateCheckOut" name="checkout" value="`+$("#tblBook #" + id + " #checkO").text()+`"/>`);
+   	$( "#tblBook #" + id + " #u").html(`Y`);
+   	$( "#tblBook #" + id + " #c").html(`N`);	
+	$( "#tblBook #" + id + " #u").removeAttr("onclick");
+	$( "#tblBook #" + id + " #u").attr("onclick", "confirmUpdate("+ id +")");
+	$( "#tblBook #" + id + " #c").removeAttr("onclick");
+	$( "#tblBook #" + id + " #c").attr("onclick", "cancelUpdate("+ id +")");
+}
+
+function cancelBook(id) {
+	$.ajax({
+	  type: "DELETE",
+	  url: "/bookings/" + id,
+	}).done(function(){
+         listBook();
+	})
+	.fail(function(jqXHR, textStatus, msg){
+	     listBook();
+	});
+}
+
+function listBook() {
+	$.ajax({
+	  type: "GET",
+	  url: "/bookings",
+	}).done(function(data){
+		$("#tblBook tr").remove();
+		$.each(data, function(index, value) {
+		  $("#tblBook").append(`
+			 <tr id=`+value.id+`>
+			    <td id="cusName">`+value.customerName+`</td>
+			    <td id="checkI">`+value.checkIn+`</td>
+			    <td id="checkO">`+value.checkOut+`</td>
+			    <td id="u" class="text-center" style="cursor:pointer; size:5px" onclick="updateBook(`+value.id+`)">U</td>
+			    <td id="c" class="text-center" style="cursor:pointer; size:5px" onclick="cancelBook(`+value.id+`)">X</td>
+		    </tr>
+		  `); 
+		});
+	}).fail(function(jqXHR, textStatus, data){
+	     
+	});
+}
+
+function confirmUpdate(id) {
 	var booking = {}
-    booking["customerName"] = $("#customerName").val();
-    booking["checkIn"] = $("#checkIn").val();
-    booking["checkOut"] = $("#checkOut").val();
+    booking["customerName"] = $("#tblBook #" + id + " #cusName #updateCustomerName").val();
+    booking["checkIn"] = $("#tblBook #" + id + " #checkI #updateCheckIn").val();
+    booking["checkOut"] = $("#tblBook #" + id + " #checkO #updateCheckOut").val();
  
 	$.ajax({
 	  type: "PUT",
 	  contentType: "application/json",
-	  url: "/bookings/" + $this.attr("name"),
+	  url: "/bookings/" + id,
 	  data: JSON.stringify(booking),
 	  dataType: 'json',
 	}).done(function(){
@@ -53,32 +103,17 @@ function updateBook() {
 	});
 }
 
-function cancelBook() {
-	$.ajax({
-	  type: "DELETE",
-	  url: "/bookings/1",
-	});
-}
-
-function listBook() {
-	$.ajax({
-	  type: "GET",
-	  url: "/bookings",
-	}).done(function(data){
-		$.each(data, function(index, value) {
-		  $("#tblBook").append(`
-			 <tr>
-			    <td>`+value.customerName+`</td>
-			    <td>`+value.checkIn+`</td>
-			    <td>`+value.checkOut+`</td>
-			    <td class="text-center"><i class="fa fa-pen"></i></td>
-		    </tr>
-		  `);
-		  console.log(value.customerName);    
-		});
-	}).fail(function(jqXHR, textStatus, data){
-	     
-	});
+function cancelUpdate(id) {
+	$( "#tblBook #" + id + " #cusName").html(localStorage.getItem('cusName'));
+	$( "#tblBook #" + id + " #checkI").html(localStorage.getItem('checkInDate'));
+   	$( "#tblBook #" + id + " #checkO").html(localStorage.getItem('checkOutDate'));
+	$( "#tblBook #" + id + " #u").html(`U`);
+   	$( "#tblBook #" + id + " #c").html(`X`);	
+	$( "#tblBook #" + id + " #u").removeAttr("onclick");
+	$( "#tblBook #" + id + " #u").attr("onclick", "updateBook("+ id +")");
+	$( "#tblBook #" + id + " #c").removeAttr("onclick");
+	$( "#tblBook #" + id + " #c").attr("onclick", "cancelBook("+ id +")");
+	localStorage.clear();
 }
 
 $.when(listBook()).then(function( x ) {
