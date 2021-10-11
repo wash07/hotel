@@ -2,14 +2,15 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Alten Hotel</title>
-    <meta charset="UTF-8"/>
 
     <!-- Bootstrap core CSS -->
     <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet"/>
+    <link href=“https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css” rel="stylesheet"/>
+    
   
     <!-- Custom styles for this template -->
-    <link href="/css/style.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/js/index.js" rel="text/javascript"></script>
 </head>
 <body>
 	  <div class="p-5 text-center text-white bg-dark">
@@ -17,9 +18,9 @@
 	  </div>
 	
 	<div class="layout-main">
-	    <section class="layout-content" style="margin-top:50px; margin-bottom: 110px;">
-	        <div class="container" id="cadastro">
-	            <form action="/funcionarios/salvar" method="POST">
+	    <section class="layout-content" style="margin-top:50px; margin-bottom: 60px;">
+	        <div class="container" id="booking">
+	            <form>
 	                <div class="row d-flex justify-content-center">
 	                    <div class="form-group col-md-6">
 	                        <label for="nome">Customer Name</label>
@@ -42,9 +43,27 @@
 					    </div>
 					  </div>
 					
-	                <div class="d-flex justify-content-end">
-	                	<button type="submit" class="btn btn-primary btn-sm" style="margin-top:10px">Book</button>
+	                <div class="d-flex" style="margin-left:71%">
+	                <button id="bookingBtn" class="btn btn-primary btn-sm" style="margin-top:10px" onclick="listBook()">List</button>
+	                	<button id="bookingBtn" class="btn btn-primary btn-sm" style="margin-top:10px" onclick="book()">Book</button>
 	                </div>
+	                
+	            </form>
+	        </div>
+	        
+	          <div class="container" id="list" style="margin-top:30px">
+	            <form>
+	                <table class="table w-50" style="margin-left:25%">
+					  <thead class="table-dark">
+					    <th>Customer Name</th>
+					    <th>CheckIn</th>
+					    <th>CheckOut</th>
+					    <th></th>
+					  </thead>
+					  <tbody id="tblBook">
+					    
+					  </tbody>
+					</table>
 	                
 	            </form>
 	        </div>
@@ -55,11 +74,9 @@
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">
   <!-- Section: Social media -->
-  <section
-    class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
-  >
+  <section class="d-flex justify-content-center p-4 border-bottom">
     <!-- Left -->
-    <div class="me-5 d-none d-lg-block">
+    <div style="margin-right: 5px">
       <span>Get connected with us on social networks:</span>
     </div>
     <!-- Left -->
@@ -137,9 +154,6 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="/webjars/jquery/jquery.min.js"></script>
-<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 
 </body>

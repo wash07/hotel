@@ -46,7 +46,6 @@ public class BookingController {
 	
 	@PutMapping("/{id}")
 	public void updateBooking(@PathVariable("id") Long id, @RequestBody Booking booking) {
-		booking.setId(id);
 		updateService.update(booking);
 	}
 	
@@ -55,9 +54,5 @@ public class BookingController {
 		deleteService.delete(id);
 	}
 	
-	@GetMapping("/checkAvailability")
-	public void checkAvailability(Booking booking) {
-		findService.findAll();
-	}
 	
 }
