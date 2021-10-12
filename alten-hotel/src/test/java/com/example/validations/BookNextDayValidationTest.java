@@ -26,7 +26,11 @@ class BookNextDayValidationTest {
 	
 	@Test
 	void givenValidDateShouldPassValidation(){
+		Booking booking = new Booking();
+		LocalDate validDate = LocalDate.now().plusDays(1);
+		booking.setCheckIn(validDate);
 		
+		target.validate(booking);
 	}
 
 }
