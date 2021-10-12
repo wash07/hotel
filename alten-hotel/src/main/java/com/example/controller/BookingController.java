@@ -41,7 +41,7 @@ public class BookingController {
 	
 	@PostMapping
 	public void createBooking(@RequestBody Booking booking) {
-		createService.validateAvailability(booking);
+		createService.create(booking);
 	}
 	
 	@PutMapping("/{id}")
