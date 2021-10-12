@@ -14,7 +14,6 @@ $("#cancelbtn").on("click", function() {
 });
 
 function book() {
-	if(validateBook() == true) {
 		var booking = {}
 	    booking["customerName"] = $("#customerName").val();
 	    booking["checkIn"] = $("#checkIn").val();
@@ -32,28 +31,6 @@ function book() {
 		.fail(function(jqXHR, textStatus, msg){
 		     listBook();
 		});	
-	}
-}
-
-function validateBook() {
-	var date = new Date();
-	var todayFormatted = date.getFullYear() +"-"+ (date.getMonth < 9 ? "0" + date.getMonth() : (date.getMonth() + 1)) 
-	+"-"+ (date.getDate <= 9 ? "0" + date.getDate() : date.getDate());
-	
-	if($("#checkIn").val() <= todayFormatted) {
-		 setTimeout(function() {
-        		$("#divError").html("Please select a date after today").addClass("error-msg");
-            }, 3000);
-		return false;
-	} else if ($("#checkOut").val() < $("#checkIn").val()) {
-		console.log("validate if checkout > checkin");
-		return false;
-	} /*else if ($("#checkOut").val() - $("#checkIn").val() > 3) {
-		console.log("validate if number of nights is bigger than 3 days");
-		return false;
-	}*/
-		
-	return true;
 }
 
 function updateBook(id) {
