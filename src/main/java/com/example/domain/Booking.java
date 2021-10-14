@@ -13,10 +13,16 @@ import javax.validation.constraints.NotNull;
 
 import com.example.customvalidator.DateRange;
 import com.example.customvalidator.ValidBookDate;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table
 @ValidBookDate
+@Getter
+@Setter
+@ToString
 public class Booking {
 	
 	@Id
@@ -37,38 +43,4 @@ public class Booking {
 	@NotNull(message="Check-in date is required")
 	@Column(nullable = false, columnDefinition = "DATE")
 	private LocalDate checkOut;
-
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-
-	public LocalDate getCheckIn() {
-		return checkIn;
-	}
-
-	public void setCheckIn(LocalDate checkIn) {
-		this.checkIn = checkIn;
-	}
-
-	public LocalDate getCheckOut() {
-		return checkOut;
-	}
-
-	public void setCheckOut(LocalDate checkOut) {
-		this.checkOut = checkOut;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	
 }
