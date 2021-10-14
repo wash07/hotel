@@ -15,15 +15,19 @@ import com.example.validations.BookingValidator;
 public class CreateBookingService {
 	
 	private BookingRepository repository;
+	private RoomLockService roomLockService;
 	private FindBookingService findService;
 	private List<BookingValidator> validators; 
 
 	@Autowired
-	public CreateBookingService(BookingRepository repository, FindBookingService findService,
-			List<BookingValidator> validators) {
+	public CreateBookingService(BookingRepository repository,
+								RoomLockService roomLockService,
+								FindBookingService findService,
+								List<BookingValidator> validators) {
 		super();
 		this.repository = repository;
 		this.findService = findService;
+		this.roomLockService = roomLockService;
 		this.validators = validators;
 	}
 
@@ -31,6 +35,7 @@ public class CreateBookingService {
 
 	@Transactional
 	public Booking create(Booking booking) {
+		roomLockService.updateLock();
 		validators.forEach(validator -> validator.validate(booking));
 		if(findService.validateAvailability(booking)) {
 			return repository.save(booking);

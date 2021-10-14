@@ -11,8 +11,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
-import com.example.customvalidator.DateRange;
-import com.example.customvalidator.ValidBookDate;
+import com.example.validations.DateRange;
+import com.example.validations.ValidBookDate;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

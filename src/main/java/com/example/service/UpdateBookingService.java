@@ -17,22 +17,26 @@ public class UpdateBookingService {
 	private BookingRepository repository;
 	
 	private FindBookingService findService;
+
+	private RoomLockService roomLockService;
 	
 	private List<BookingValidator> validators; 
 	
 	@Autowired
-	public UpdateBookingService(BookingRepository repository, FindBookingService findService,
-			List<BookingValidator> validators) {
+	public UpdateBookingService(BookingRepository repository,
+								RoomLockService roomLockService,
+								FindBookingService findService,
+								List<BookingValidator> validators) {
 		super();
 		this.repository = repository;
 		this.findService = findService;
+		this.roomLockService = roomLockService;
 		this.validators = validators;
 	}
 
-
-
 	@Transactional
 	public Booking update(Booking booking) {
+		roomLockService.updateLock();
 		validators.forEach(validator -> validator.validate(booking));
 		Booking alreadyBooked = findService.findById(booking.getId());
 		if((alreadyBooked.getCheckIn().isEqual(booking.getCheckIn()) && alreadyBooked.getCheckOut().isEqual(booking.getCheckOut()))

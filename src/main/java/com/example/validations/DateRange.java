@@ -1,4 +1,4 @@
-package com.example.customvalidator;
+package com.example.validations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -10,12 +10,12 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = BookDateValidator.class)
-@Target( { ElementType.TYPE })
+@Constraint(validatedBy = DateRangeValidator.class)
+@Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidBookDate {
+public @interface DateRange {
 	
-	String message() default "Invalid period of booking";
+	String message() default "Invalid date range";
 
     Class<?>[] groups() default {};
 

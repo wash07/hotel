@@ -1,4 +1,4 @@
-package com.example.customvalidator;
+package com.example.validations;
 
 import java.time.temporal.ChronoUnit;
 

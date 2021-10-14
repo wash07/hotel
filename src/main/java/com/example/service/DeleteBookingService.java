@@ -11,14 +11,14 @@ import com.example.dao.BookingRepository;
 public class DeleteBookingService {
 	
 	private BookingRepository repository;
+	private RoomLockService roomLockService;
 	
 	@Autowired
-	public DeleteBookingService(BookingRepository repository) {
+	public DeleteBookingService(BookingRepository repository, RoomLockService roomLockService) {
 		super();
 		this.repository = repository;
+		this.roomLockService = roomLockService;
 	}
-
-
 
 	@Transactional
 	public void delete(Long id) {
