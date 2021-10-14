@@ -25,9 +25,11 @@ function book() {
 		  url: "/bookings",
 		  data: JSON.stringify(booking),
 		  dataType: 'json',
-		}).done(function(data){
-	       listBook();
-		});	
+		}).done(function(){
+			
+		}).fail(function()  {
+		    
+		}); ;	
 }
 
 function updateBook(id) {
@@ -107,12 +109,7 @@ function cancelUpdate(id) {
 	localStorage.clear();
 }
 
-function returnMessage(message) {
-   $('#alert_placeholder').html('<div class="alert"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
-}
-
 $.when(listBook()).then(function( ) {
-	if($("#tblBook tr #cusName").lenght == 0) {
-		page.reload();
-	}
+	console.log("done");
+	listBook();
 });

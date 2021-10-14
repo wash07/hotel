@@ -15,7 +15,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidBookDate {
 	
-	String message() default "Invalid Check-out date";
+	String message() default "Invalid period of booking";
 
     Class<?>[] groups() default {};
 

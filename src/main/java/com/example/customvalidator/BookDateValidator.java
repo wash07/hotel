@@ -1,5 +1,7 @@
 package com.example.customvalidator;
 
+import java.time.temporal.ChronoUnit;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
@@ -9,7 +11,7 @@ public class BookDateValidator implements ConstraintValidator<ValidBookDate, Boo
 
 	@Override
 	public boolean isValid(Booking value, ConstraintValidatorContext context) {
-		return value.getCheckIn().isBefore(value.getCheckOut());
+		return value.getCheckIn().isBefore(value.getCheckOut()) && value.getCheckIn().until(value.getCheckOut(), ChronoUnit.DAYS) <= 3 ;
 	}
 
 	
