@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.example.domain.Booking;
 
 @Component
-public class BookMoreThanThreeDaysValidation implements BookingValidator{
+public class BookMoreDaysThanAllowedValidation implements BookingValidator{
 
 	@Override
 	public void validate(Booking booking) {

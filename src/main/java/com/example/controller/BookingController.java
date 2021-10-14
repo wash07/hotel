@@ -2,6 +2,8 @@ package com.example.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,12 +42,12 @@ public class BookingController {
 	}
 	
 	@PostMapping
-	public void createBooking(@RequestBody Booking booking) {
+	public void createBooking(@Valid @RequestBody Booking booking) {
 		createService.create(booking);
 	}
 	
 	@PutMapping("/{id}")
-	public void updateBooking(@PathVariable("id") Long id, @RequestBody Booking booking) {
+	public void updateBooking(@PathVariable("id") Long id, @Valid @RequestBody Booking booking) {
 		booking.setId(id);
 		updateService.update(booking);
 	}

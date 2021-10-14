@@ -8,14 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.example.customvalidator.DateRange;
+import com.example.customvalidator.ValidBookDate;
 
 @Entity
 @Table
-@Getter
-@Setter
+@ValidBookDate
 public class Booking {
 	
 	@Id
@@ -25,9 +26,15 @@ public class Booking {
 	@Column(nullable = false)
 	private String customerName;
 	
+	@DateRange
+	@Future(message="The Check-in date should be at least a day after today")
+	@NotNull(message="Check-in date is required")
 	@Column(nullable = false, columnDefinition = "DATE")
 	private LocalDate checkIn;
 	
+	@DateRange
+	@Future(message="The Check-out date should be a future date")
+	@NotNull(message="Check-in date is required")
 	@Column(nullable = false, columnDefinition = "DATE")
 	private LocalDate checkOut;
 

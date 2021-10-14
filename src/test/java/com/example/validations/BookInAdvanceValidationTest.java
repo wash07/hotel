@@ -11,7 +11,7 @@ import com.example.domain.Booking;
 
 class BookInAdvanceValidationTest {
 
-	private BookMoreThanThreeDaysValidation target = new BookMoreThanThreeDaysValidation();
+	private BookMoreDaysThanAllowedValidation target = new BookMoreDaysThanAllowedValidation();
 	
 	@Test
 	void givenCheckInMoreTimeThanAllowedShouldThrowException() {
