@@ -10,9 +10,16 @@ import com.example.dao.BookingRepository;
 @Service
 public class DeleteBookingService {
 	
-	@Autowired
 	private BookingRepository repository;
 	
+	@Autowired
+	public DeleteBookingService(BookingRepository repository) {
+		super();
+		this.repository = repository;
+	}
+
+
+
 	@Transactional
 	public void delete(Long id) {
 		repository.deleteById(id);

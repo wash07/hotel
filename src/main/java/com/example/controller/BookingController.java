@@ -1,12 +1,13 @@
 package com.example.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,28 +45,30 @@ public class BookingController {
 	}
 
 	@GetMapping
-	public List<Booking> listBooking() {
+	public ResponseEntity<List<Booking>> listBooking() {
 		log.info("[RECEIVED REQUEST] Find All Bookings");
-		return findService.findAll();
+		return ResponseEntity.ok(findService.findAll());
 	}
 	
 	@PostMapping
-	public void createBooking(@Valid @RequestBody Booking booking) {
-		log.info("[RECEIVED REQUEST] Create Booking for " + booking);
-		createService.create(booking);
+	public ResponseEntity<Booking> createBooking(@Valid @RequestBody Booking bookingRequest) {
+		log.info("[RECEIVED REQUEST] Create Booking for " + bookingRequest);
+		Booking booking = createService.create(bookingRequest);
+		return ResponseEntity.created(URI.create(booking.getId().toString())).body(booking);
 	}
 	
 	@PutMapping("/{id}")
-	public void updateBooking(@PathVariable("id") Long id, @Valid @RequestBody Booking booking) {
+	public ResponseEntity<Booking> updateBooking(@PathVariable("id") Long id, @Valid @RequestBody Booking booking) {
 		log.info("[RECEIVED REQUEST] Update Booking for " + id + ": " + booking);
 		booking.setId(id);
-		updateService.update(booking);
+		return ResponseEntity.accepted().body(updateService.update(booking));
 	}
 	
 	@DeleteMapping("/{id}")
-	public void cancelBooking(@PathVariable("id") Long id) {
+	public ResponseEntity<Object> cancelBooking(@PathVariable("id") Long id) {
 		log.info("[RECEIVED REQUEST] Delete Booking for " + id);
 		deleteService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 	
 	

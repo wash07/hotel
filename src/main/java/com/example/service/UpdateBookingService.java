@@ -14,22 +14,32 @@ import com.example.validations.BookingValidator;
 @Service
 public class UpdateBookingService {
 	
-	@Autowired
 	private BookingRepository repository;
 	
-	@Autowired
 	private FindBookingService findService;
 	
-	@Autowired
 	private List<BookingValidator> validators; 
 	
+	@Autowired
+	public UpdateBookingService(BookingRepository repository, FindBookingService findService,
+			List<BookingValidator> validators) {
+		super();
+		this.repository = repository;
+		this.findService = findService;
+		this.validators = validators;
+	}
+
+
+
 	@Transactional
-	public void update(Booking booking) {
+	public Booking update(Booking booking) {
 		validators.forEach(validator -> validator.validate(booking));
 		Booking alreadyBooked = findService.findById(booking.getId());
 		if((alreadyBooked.getCheckIn().isEqual(booking.getCheckIn()) && alreadyBooked.getCheckOut().isEqual(booking.getCheckOut()))
 				|| findService.validateAvailability(booking)) {
-			repository.save(booking);	
+			return repository.save(booking);	
+		} else {
+			throw new RuntimeException("Couldn't update the booking request");
 		}
 	}
 

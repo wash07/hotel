@@ -11,9 +11,14 @@ import com.example.domain.Booking;
 @Service
 public class FindBookingService {
 	
-	@Autowired
 	private BookingRepository repository;
-	
+
+	@Autowired
+	public FindBookingService(BookingRepository repository) {
+		super();
+		this.repository = repository;
+	}
+
 	public List<Booking> findAll() {
 		return repository.findAll();
 	}

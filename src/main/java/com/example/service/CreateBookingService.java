@@ -14,20 +14,28 @@ import com.example.validations.BookingValidator;
 @Service
 public class CreateBookingService {
 	
-	@Autowired
 	private BookingRepository repository;
-	
-	@Autowired
 	private FindBookingService findService;
-	
-	@Autowired
 	private List<BookingValidator> validators; 
-	
+
+	@Autowired
+	public CreateBookingService(BookingRepository repository, FindBookingService findService,
+			List<BookingValidator> validators) {
+		super();
+		this.repository = repository;
+		this.findService = findService;
+		this.validators = validators;
+	}
+
+
+
 	@Transactional
-	public void create(Booking booking) {
+	public Booking create(Booking booking) {
 		validators.forEach(validator -> validator.validate(booking));
 		if(findService.validateAvailability(booking)) {
-			repository.save(booking);	
+			return repository.save(booking);
+		} else {
+			throw new RuntimeException("There's already a booking for this date");
 		}
 	}
 
