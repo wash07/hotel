@@ -1,5 +1,4 @@
 function book() {
-console.log("entrou");
 		var booking = {}
 	    booking["customerName"] = $("#customerName").val();
 	    booking["checkIn"] = $("#checkIn").val();
@@ -11,11 +10,11 @@ console.log("entrou");
 		  url: "/bookings",
 		  data: JSON.stringify(booking),
 		  dataType: 'json',
-		}).done(function(){
-			console.log("entrou2");
+		}).always(function(){
+			listBook();
 		}).fail(function()  {
-		    
-		}); ;	
+
+		}); ;
 }
 
 function updateBook(id) {
@@ -26,12 +25,12 @@ function updateBook(id) {
 	                               autofocus="autofocus" name="name" value="`+$("#tblBook #" + id + " #cusName").text()+`"/>`);
 	$( "#tblBook #" + id + " #checkI").html(`<input type="date" class="form-control" id="updateCheckIn" name="checkin" value="`+$("#tblBook #" + id + " #checkI").text()+`"/>`);
    	$( "#tblBook #" + id + " #checkO").html(`<input type="date" class="form-control" id="updateCheckOut" name="checkout" value="`+$("#tblBook #" + id + " #checkO").text()+`"/>`);
-   	$( "#tblBook #" + id + " #update").html(`<i class="fas fa-check"></i>`);
-   	$( "#tblBook #" + id + " #cancel").html(`<i class="fas fa-times"></i>`);	
-	$( "#tblBook #" + id + " #update").removeAttr("onclick");
-	$( "#tblBook #" + id + " #update").attr("onclick", "confirmUpdate("+ id +")");
-	$( "#tblBook #" + id + " #cancel").removeAttr("onclick");
-	$( "#tblBook #" + id + " #cancel").attr("onclick", "cancelUpdate("+ id +")");
+   	$( "#tblBook #" + id + " #update" + id).html(`<i class="fas fa-check"></i>`);
+   	$( "#tblBook #" + id + " #cancel" + id).html(`<i class="fas fa-times"></i>`);
+	$( "#tblBook #" + id + " #update" + id).removeAttr("onclick");
+	$( "#tblBook #" + id + " #update" + id).attr("onclick", "confirmUpdate("+ id +")");
+	$( "#tblBook #" + id + " #cancel" + id).removeAttr("onclick");
+	$( "#tblBook #" + id + " #cancel" + id).attr("onclick", "cancelUpdate("+ id +")");
 }
 
 function cancelBook(id) {
@@ -55,12 +54,12 @@ function listBook() {
 			    <td id="cusName">`+value.customerName+`</td>
 			    <td id="checkI">`+value.checkIn+`</td>
 			    <td id="checkO">`+value.checkOut+`</td>
-			    <td id="update" class="text-center" style="cursor:pointer; size:5px" onclick="updateBook(`+value.id+`)"></td>
-			    <td id="cancel" class="text-center" style="cursor:pointer; size:5px" onclick="cancelBook(`+value.id+`)"></td>
+			    <td id="update`+ value.id +`" class="text-center" style="cursor:pointer; size:5px" onclick="updateBook(`+value.id+`)"></td>
+			    <td id="cancel`+ value.id +`" class="text-center" style="cursor:pointer; size:5px" onclick="cancelBook(`+value.id+`)"></td>
 		    </tr>
-		  `); 
-		   $('#update').html(`<i class="fas fa-pen"></i>`);
-		   $('#cancel').html(`<i class="fas fa-times"></i>`);
+		  `);
+		   $('#update' + value.id).html(`<i class="fas fa-pen"></i>`);
+		   $('#cancel' + value.id).html(`<i class="fas fa-times"></i>`);
 		});
 	});
 }
@@ -70,7 +69,7 @@ function confirmUpdate(id) {
     booking["customerName"] = $("#tblBook #" + id + " #cusName #updateCustomerName").val();
     booking["checkIn"] = $("#tblBook #" + id + " #checkI #updateCheckIn").val();
     booking["checkOut"] = $("#tblBook #" + id + " #checkO #updateCheckOut").val();
- 
+
 	$.ajax({
 	  type: "PUT",
 	  contentType: "application/json",
@@ -86,12 +85,12 @@ function cancelUpdate(id) {
 	$( "#tblBook #" + id + " #cusName").html(localStorage.getItem('cusName'));
 	$( "#tblBook #" + id + " #checkI").html(localStorage.getItem('checkInDate'));
    	$( "#tblBook #" + id + " #checkO").html(localStorage.getItem('checkOutDate'));
-	$( "#tblBook #" + id + " #update").html(`<i class="fas fa-pen"></i>`);
-   	$( "#tblBook #" + id + " #cancel").html(`<i class="fas fa-times"></i>`);	
-	$( "#tblBook #" + id + " #update").removeAttr("onclick");
-	$( "#tblBook #" + id + " #update").attr("onclick", "updateBook("+ id +")");
-	$( "#tblBook #" + id + " #cancel").removeAttr("onclick");
-	$( "#tblBook #" + id + " #cancel").attr("onclick", "cancelBook("+ id +")");
+	$( "#tblBook #" + id + " #update" + id).html(`<i class="fas fa-pen"></i>`);
+   	$( "#tblBook #" + id + " #cancel" + id).html(`<i class="fas fa-times"></i>`);
+	$( "#tblBook #" + id + " #update" + id).removeAttr("onclick");
+	$( "#tblBook #" + id + " #update" + id).attr("onclick", "updateBook("+ id +")");
+	$( "#tblBook #" + id + " #cancel" + id).removeAttr("onclick");
+	$( "#tblBook #" + id + " #cancel" + id).attr("onclick", "cancelBook("+ id +")");
 	localStorage.clear();
 }
 
