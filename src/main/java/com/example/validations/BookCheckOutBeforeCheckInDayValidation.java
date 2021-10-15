@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 
 @Component
-public class BookCheckOutBeforeCheckinDayValidation implements BookingValidator{
+public class BookCheckOutBeforeCheckInDayValidation implements BookingValidator{
 
 	@Override
 	public void validate(Booking booking) {

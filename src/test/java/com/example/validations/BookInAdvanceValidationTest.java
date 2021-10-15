@@ -11,29 +11,25 @@ import com.example.domain.Booking;
 
 class BookInAdvanceValidationTest {
 
-	private BookMoreDaysThanAllowedValidation target = new BookMoreDaysThanAllowedValidation();
+	private BookInAdvanceValidation target = new BookInAdvanceValidation();
 	
 	@Test
-	void givenCheckInMoreTimeThanAllowedShouldThrowException() {
+	void givenDateInAdvanceShouldThrowException() {
 		Booking booking = new Booking();
-		LocalDate checkInDate = LocalDate.now().plusDays(1);
-		LocalDate checkOutDate = LocalDate.now().plusDays(4);
-		booking.setCheckIn(checkInDate);
-		booking.setCheckOut(checkOutDate);
+		LocalDate invalidDate = LocalDate.now().plusDays(31);
+		booking.setCheckIn(invalidDate);
 		
 		RuntimeException ex = assertThrows(RuntimeException.class,
 				() -> target.validate(booking));
 		
-		assertTrue(ex.getMessage().equals("You can't reserve more than 3 days"));
+		assertTrue(ex.getMessage().equals("You can only book within 30 days from the actual date"));
 	}
 	
 	@Test
-	void givenValidRangeDateShouldPassValidation(){
+	void givenValidDateShouldPassValidation(){
 		Booking booking = new Booking();
-		LocalDate checkInDate = LocalDate.now().plusDays(1);
-		LocalDate checkOutDate = LocalDate.now().plusDays(4);
-		booking.setCheckIn(checkInDate);
-		booking.setCheckOut(checkOutDate);
+		LocalDate validDate = LocalDate.now().plusDays(1);
+		booking.setCheckIn(validDate);
 		
 		target.validate(booking);
 	}

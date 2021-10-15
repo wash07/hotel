@@ -40,29 +40,29 @@ validations without changing another layer.
 ### Technologies
 
 These are the tools used to develop this application:
-- [Java 8](https://expo.io/)
-- [Spring Boot](https://nodejs.org/en/)
-- [Spring Data](https://pt-br.reactjs.org/)
-- [MySql](https://reactnative.dev/)
-- [JQuery](https://www.typescriptlang.org/)
-- [Bootstrap](https://www.typescriptlang.org/)
-- [FontAwesome](https://www.typescriptlang.org/)
+- [Java 8](https://www.oracle.com/br/index.html)
+- [Spring Framework](https://spring.io)
+- [Lombok](https://projectlombok.org)
+- [H2](https://www.h2database.com/html/main.html)
+- [JQuery](https://jquery.com)
+- [Bootstrap](https://getbootstrap.com)
+- [FontAwesome](https://fontawesome.com)
 
 ### Validations
 
-Some of the validations applied on the project when the end user tries to reserve a booking:
+Some validations applied on the project when the end user tries to reserve a booking:
 - Check if it's not after 30 days from the actual date.
 - Check if the end user is not booking a period bigger than 3 days.
 - Check if the end user is booking a reservation at least a day after the actual date.
+- Check if the end user choose a check-out date before the check-in date.
+- Check if the end user choose a date on the past.
 
 ### How to Run
 
-In order to run the application, you should have an MySQL server and under the src/resources folder
-there's the application.properties where you can use your MySQL user and password configurations.
-There's also the front-end application located at the resources folder.
-
 To run the back-end server you need to have Maven installed in your machine and execute the following command:
 `mvn spring-boot:run`
+
+Since we are using H2 Database for testing purposes there's no need to have a MySQL configured.
 
 ### Unit Tests
 
