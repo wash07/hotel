@@ -1,168 +1,132 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <title>Alten Hotel</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/133b219b20.js" crossorigin="anonymous"></script>
-    
-  
+
     <!-- Custom styles for this template -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link src="/js/index.js" rel="text/javascript"></link>
+    <script src="/js/index.js" rel="text/javascript"></script>
     <link src="/css/index.css" rel="stylesheet"></script>
 </head>
 <body>
-	  <div class="p-5 text-center text-white bg-dark">
-	    <h1 class="mb-3">Alten Hotel</h1>
-	  </div>
-	
-	<div class="layout-main">
-	    <section class="layout-content" style="margin-top:50px; margin-bottom: 60px;">
-	        <div class="container" id="booking">
-	            <form>
-	                <div class="row d-flex justify-content-center">
-	                    <div class="form-group col-md-6">
-	                        <label for="nome">Customer Name</label>
-	                        <input type="text" class="form-control" id="customerName" placeholder="Customer Name"
-	                               autofocus="autofocus" name="name" value=""/>
-	                    </div>
-	                </div>
-	                
-					  <div class="row d-flex justify-content-center" style="margin-top:10px">
-					    <div class="col-md-3">
-					      	<label for="checkin">Check-in</label>
-                        	<input type="date" class="form-control" id="checkIn" name="checkin" value=""/>
-					    </div>
-					    <div class="col-md-3">
-					      	<label for="checkout">Check-out</label>
-	                        <input type="date" class="form-control" id="checkOut" name="checkout" value=""/>
-					    </div>
-					    <div id='divError'></div>
-					  </div>
-					
-	                <div class="d-flex" style="margin-left:71%">
-	                	<button id="bookingBtn" class="btn btn-primary btn-sm" style="margin-top:10px" onclick="book()">Book</button>
-	                </div>
-	                
-	            </form>
-	        </div>
-	        
-	          <div class="container" id="list" style="margin-top:30px">
-	            <form>
-	                <table id="tblBooking" class="table w-50" style="margin-left:25%">
-					  <thead class="table-dark">
-					    <th>Customer Name</th>
-					    <th>Check-in</th>
-					    <th>Check-out</th>
-					    <th></th>
-					    <th></th>
-					  </thead>
-					  <tbody id="tblBook">
-					    <tr th:each="book : ${students}" th:style="${iStat.odd}? 'font-weight: bold;'" th:alt-title="${iStat.even}? 'even' : 'odd'">
-							<td th:text="${student.id}" />
-							<td th:text="${student.name}" />
-							<td th:switch="${student.gender}"><span th:case="'M'"
-								th:text="Male" /> <span th:case="'F'" th:text="Female" /></td>
-							<td th:text="${#conversions.convert(student.percentage, 'Integer')}" />
-							<td th:text="${iStat.index}" />
-							<td th:text="${iStat.count}" />
-							<td th:text="${iStat.first}" />
-							<td th:text="${iStat.last}" /> 
-						</tr>
-					  </tbody>
-					</table>
-	                
-	            </form>
-	        </div>
-	    </section>
-	</div>
-	
-<!-- Footer -->
+<div class="p-5 text-center text-white bg-dark">
+    <h1 class="mb-3">Alten Hotel</h1>
+</div>
+
+<div class="layout-main">
+    <section class="layout-content" style="margin-top:50px; margin-bottom: 60px;">
+        <div class="container" id="booking">
+            <form>
+                <div class="row d-flex justify-content-center">
+                    <div class="form-group col-md-6">
+                        <label for="customerName">Customer Name</label>
+                        <input type="text" class="form-control" id="customerName" placeholder="Customer Name"
+                               autofocus="autofocus" name="name" value=""/>
+                    </div>
+                </div>
+
+                <div class="row d-flex justify-content-center" style="margin-top:10px">
+                    <div class="col-md-3">
+                        <label for="checkin">Check-in</label>
+                        <input type="date" class="form-control" id="checkIn" name="checkin" value=""/>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="checkout">Check-out</label>
+                        <input type="date" class="form-control" id="checkOut" name="checkout" value=""/>
+                    </div>
+                    <div id='divError'></div>
+                </div>
+
+                <div class="d-flex" style="margin-left:71%">
+                    <button id="bookingBtn" class="btn btn-primary btn-sm" style="margin-top:10px" onclick="book()">Book</button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="container" id="list" style="margin-top:30px">
+            <form>
+                <table id="tblBooking" class="table w-50" style="margin-left:25%">
+                    <thead class="table-dark">
+                    <th>Customer Name</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th></th>
+                    <th></th>
+                    </thead>
+                    <tbody id="tblBook">
+                    </tbody>
+                </table>
+
+            </form>
+        </div>
+    </section>
+</div>
+
 <footer class="text-center text-lg-start bg-light text-muted">
-  <!-- Section: Social media -->
-  <section class="d-flex justify-content-center p-4 border-bottom">
-    <!-- Left -->
-    <div style="margin-right: 5px">
-      <span>Get connected with us on social networks:</span>
-    </div>
-    <!-- Left -->
-
-    <!-- Right -->
-    <div>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-google"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-linkedin"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-    <!-- Right -->
-  </section>
-  <!-- Section: Social media -->
-
-  <!-- Section: Links  -->
-  <section class="">
-    <div class="container text-center text-md-start mt-5">
-      <!-- Grid row -->
-      <div class="row mt-3">
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-          <!-- Content -->
-          <h6 class="text-uppercase fw-bold mb-4">
-            <i class="fas fa-gem me-3"></i>Alten Hotel
-          </h6>
-          <p>
-            Hope you enjoyed your stay with us and come back soon.
-          </p>
+    <section class="d-flex justify-content-center p-4 border-bottom">
+        <div style="margin-right: 5px">
+            <span>Get connected with us on social networks:</span>
         </div>
-        <!-- Grid column -->
 
-        <!-- Grid column -->
-        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4">
-            Adress
-          </h6>
-          <p><i class="fas fa-home me-3"></i> Imaginarie Street, IM 00000, CA</p>
-          <p>
-            <i class="fas fa-envelope me-3"></i>
-            hotel@wow.com
-          </p>
+        <div>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-google"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-github"></i>
+            </a>
         </div>
-        <!-- Grid column -->
-      </div>
-      <!-- Grid row -->
-    </div>
-  </section>
-  <!-- Section: Links  -->
+    </section>
 
-  <!-- Copyright -->
-  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2021 Copyright:
-    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Alten Hotel</a>
-  </div>
-  <!-- Copyright -->
+    <section class="">
+        <div class="container text-center text-md-start mt-5">
+            <div class="row mt-3">
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        <i class="fas fa-gem me-3"></i>Alten Hotel
+                    </h6>
+                    <p>
+                        Hope you enjoyed your stay with us and come back soon.
+                    </p>
+                </div>
+
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        Adress
+                    </h6>
+                    <p><i class="fas fa-home me-3"></i> Imaginarie Street, IM 00000, CA</p>
+                    <p>
+                        <i class="fas fa-envelope me-3"></i>
+                        hotel@wow.com
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        © 2021 Copyright:
+        <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Alten Hotel</a>
+    </div>
+
 </footer>
-<!-- Footer -->
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
-</html>		
+</html>

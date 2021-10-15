@@ -1,19 +1,5 @@
-$("#updatebtn").on("click", function() {
-	$.ajax({
-	  method: "PUT",
-	  url: "/booking/" + $("#id").val(),
-	  data: { customerName: $("#customerName").val(), checkIn: $("#checkIn").val(), checkOut: $("#checkOut").val() }
-	});
-});
-
-$("#cancelbtn").on("click", function() {
-	$.ajax({
-	  method: "DELETE",
-	  url: "/booking/" + $("#id").val(),
-	});
-});
-
 function book() {
+console.log("entrou");
 		var booking = {}
 	    booking["customerName"] = $("#customerName").val();
 	    booking["checkIn"] = $("#checkIn").val();
@@ -26,7 +12,7 @@ function book() {
 		  data: JSON.stringify(booking),
 		  dataType: 'json',
 		}).done(function(){
-			
+			console.log("entrou2");
 		}).fail(function()  {
 		    
 		}); ;	
@@ -110,6 +96,5 @@ function cancelUpdate(id) {
 }
 
 $.when(listBook()).then(function( ) {
-	console.log("done");
 	listBook();
 });
